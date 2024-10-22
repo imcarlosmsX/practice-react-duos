@@ -33,10 +33,10 @@ const App = () => {
             type="text"
             value={taskInput}
             onChange={(e) => setTaskInput(e.target.value)}
-            placeholder="Escribe una tarea"
+            placeholder="Type a task"
           />
         </div>
-        <button onClick={addTask} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Añadir</button>
+        <button onClick={addTask} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Add</button>
       </div>
       <div className='flex flex-col items-center justify-center mx-5 space-y-4'>
         {tasks.map((task, index) => (
