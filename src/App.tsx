@@ -1,18 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [tasks, setTasks] = useState<string[]>([]);
+  const [taskInput, setTaskInput] = useState<string>('');
+
+  const addTask = () => {
+    if (taskInput.trim() !== '') {
+      setTasks([...tasks, taskInput]);
+      setTaskInput('');
+    }
+  };
+
+  const deleteTask = (index: number) => {
+    const newTasks = tasks.filter((_, i) => i !== index);
+    setTasks(newTasks);
+  };
 
   return (
-    <>
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
-  )
-}
+    <div className="App">
+      <div>
+        <input
+          type="text"
+          value={taskInput}
+          onChange={(e) => setTaskInput(e.target.value)}
+          placeholder="Escribe una tarea"
+        />
+        <button onClick={addTask}>Añadir</button>
+      </div>
+      <div>
+        {tasks.map((task, index) => (
+          <div key={index} className="task">
+            <span>{task}</span>
+            <button onClick={() => deleteTask(index)} className="delete-button">Borrar</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-export default App
+export default App;
