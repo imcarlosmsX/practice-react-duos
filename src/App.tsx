@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const App = () => {
+  const [taskInput, setTaskInput] = useState('');
   const [tasks, setTasks] = useState<string[]>([]);
-  const [taskInput, setTaskInput] = useState<string>('');
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   const addTask = () => {
     if (taskInput.trim() !== '') {
@@ -15,7 +26,7 @@ const App = () => {
     const newTasks = tasks.filter((_, i) => i !== index);
     setTasks(newTasks);
   };
-  
+
   return (
     <div className="App">
       <h1 className="text-3xl text-center mt-10 mb-5">To Do List</h1>
@@ -43,6 +54,6 @@ const App = () => {
       </div>
     </div>
   );
-  };
-  
-  export default App;
+};
+
+export default App;
