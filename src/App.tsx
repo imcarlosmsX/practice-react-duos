@@ -31,7 +31,8 @@ const App = () => {
         {tasks.map((task, index) => (
           <div key={index} className="task">
             <span>{task}</span>
-            <button onClick={() => deleteTask(index)} className="delete-button">Borrar</button>
+            <button onClick={() => deleteTask(index)} className="delete-button">
+  <img src="/public/assets/delete-svgrepo-com.svg" alt="" className="w-5" /></button>
           </div>
         ))}
       </div>
