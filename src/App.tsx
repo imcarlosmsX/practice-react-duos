@@ -2,14 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 const App = () => {
   const [taskInput, setTaskInput] = useState('');
-  const [tasks, setTasks] = useState<string[]>([]);
-
-  useEffect(() => {
+  const [tasks, setTasks] = useState<string[]>(() => {
     const storedTasks = localStorage.getItem('tasks');
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
-    }
-  }, []);
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -37,10 +33,10 @@ const App = () => {
             type="text"
             value={taskInput}
             onChange={(e) => setTaskInput(e.target.value)}
-            placeholder="Type the task"
+            placeholder="Escribe una tarea"
           />
         </div>
-        <button onClick={addTask} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Add</button>
+        <button onClick={addTask} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Añadir</button>
       </div>
       <div className='flex flex-col items-center justify-center mx-5 space-y-4'>
         {tasks.map((task, index) => (
